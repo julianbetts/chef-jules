@@ -284,3 +284,80 @@ p {
     backdrop-filter: none;
   }
 }
+
+/* Hamburger button */
+.nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  margin: 0 0 0 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.nav-toggle .line {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: currentColor;
+  margin: 3px 0;
+  transition: transform 120ms ease, opacity 120ms ease;
+}
+
+/* Mobile layout: nav becomes a dropdown panel */
+@media (max-width: 899px) {
+  .nav {
+    position: fixed;
+    top: 56px;          /* matches mobile header height */
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px 16px;
+    background: var(--bg);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+  .nav a {
+    padding: 12px;
+    border-radius: 10px;
+  }
+  .nav a:hover {
+    background: rgba(255,255,255,0.06);
+  }
+  .nav.open {
+    display: flex;
+  }
+  /* show button on mobile */
+  .nav-toggle {
+    display: inline-flex;
+  }
+}
+
+/* Desktop keeps the old inline nav and hides the button */
+@media (min-width: 900px) {
+  .nav {
+    display: flex;
+    gap: 8px;
+    position: static;
+    padding: 0;
+    box-shadow: none;
+    border: 0;
+    flex-direction: row;
+  }
+  .nav-toggle {
+    display: none;
+  }
+}
+
+/* Lock scroll when menu is open */
+body.nav-open {
+  overflow: hidden;
+}

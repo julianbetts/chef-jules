@@ -11,17 +11,25 @@
 </head>
 <body data-ac-endpoint="content/site.json">
   <header class="header" role="banner">
-    <div class="bar container">
-      <a href="#" aria-label="Home" class="brand"><strong data-ac="brand">Chef Jules</strong></a>
-      <nav class="nav" aria-label="Primary">
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#menu">Menu</a>
-        <a href="#testimonials">Praise</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
+  <div class="bar container">
+    <a href="#" aria-label="Home" class="brand"><strong data-ac="brand">Chef Jules</strong></a>
+
+    <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Menu">
+      <span class="line"></span>
+      <span class="line"></span>
+      <span class="line"></span>
+    </button>
+
+    <nav class="nav" id="primary-nav" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#menu">Menu</a>
+      <a href="#testimonials">Praise</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
 
   <main id="main">
     <section class="hero">
@@ -78,7 +86,7 @@
 
   <footer class="footer">
     <div class="container">
-      <div class="kicker">Managed with Anti-Coder (soon)</div>
+      <!-- <div class="kicker">Managed with Anti-Coder (soon)</div> -->
       <div data-ac="footer">Chef Jules · Los Angeles, CA</div>
     </div>
   </footer>

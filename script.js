@@ -112,6 +112,46 @@
     });
   }
 
+  // Mobile nav toggle
+const navToggle = document.querySelector(".nav-toggle");
+const nav = document.getElementById("primary-nav");
+
+if (navToggle && nav) {
+  navToggle.addEventListener("click", () => {
+    const open = nav.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", String(open));
+    document.body.classList.toggle("nav-open", open);
+  });
+
+  // Close when a link is clicked
+  nav.querySelectorAll("a").forEach(a => {
+    a.addEventListener("click", () => {
+      nav.classList.remove("open");
+      navToggle.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("nav-open");
+    });
+  });
+
+  // Close on Escape
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      nav.classList.remove("open");
+      navToggle.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("nav-open");
+    }
+  });
+
+  // If user resizes to desktop, ensure menu is closed
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 900) {
+      nav.classList.remove("open");
+      navToggle.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("nav-open");
+    }
+  });
+}
+
+
   getJSON(endpoint)
     .then(render)
     .catch(err => {
