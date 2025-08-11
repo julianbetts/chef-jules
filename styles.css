@@ -21,7 +21,7 @@ body {
   color: var(--text);
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial,
     "Apple Color Emoji", "Segoe UI Emoji";
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 img {
@@ -33,6 +33,12 @@ img {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 h1,
@@ -51,11 +57,20 @@ p {
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 16px; /* tighter on phones */
 }
 
 .section {
-  padding: 72px 0;
+  padding: 56px 0; /* smaller mobile rhythm */
+}
+
+@media (min-width: 900px) {
+  .container {
+    padding: 0 24px;
+  }
+  .section {
+    padding: 80px 0;
+  }
 }
 
 /* Header and nav */
@@ -72,11 +87,28 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
+  height: 56px; /* shorter on phones */
 }
 
+@media (min-width: 900px) {
+  .header .bar {
+    height: 64px;
+  }
+}
+
+/* mobile friendly, scrollable nav */
+.nav {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.nav::-webkit-scrollbar { display: none; }
+
 .nav a {
-  padding: 8px 12px;
+  flex: 0 0 auto;
+  padding: 10px 12px;
   border-radius: 8px;
 }
 
@@ -94,10 +126,14 @@ p {
   font-size: 14px;
 }
 
+/* full width buttons on phones for easier taps */
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
+  width: 100%;
+  min-height: 44px; /* touch target */
   padding: 12px 18px;
   border: 0;
   border-radius: 12px;
@@ -113,9 +149,15 @@ p {
   border: 1px solid rgba(255, 255, 255, 0.14);
 }
 
+@media (min-width: 640px) {
+  .btn {
+    width: auto; /* go back to inline on tablets and up */
+  }
+}
+
 /* Hero */
 .hero {
-  padding: 96px 0 72px 0;
+  padding: 72px 0 56px 0; /* smaller on phones */
   background:
     radial-gradient(
       1200px 500px at 20% -10%,
@@ -130,14 +172,14 @@ p {
 }
 
 .hero h1 {
-  font-size: clamp(36px, 5vw, 56px);
+  font-size: clamp(28px, 8vw, 56px); /* scales better on tiny screens */
   margin-bottom: 12px;
 }
 
 .hero .lead {
-  font-size: clamp(16px, 2.4vw, 20px);
+  font-size: clamp(15px, 4vw, 20px);
   color: var(--muted);
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 /* Grid */
@@ -146,20 +188,36 @@ p {
   gap: 16px;
 }
 
+/* mobile first: 1 column by default */
+.grid.cols-2,
 .grid.cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1fr;
 }
 
-.grid.cols-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+@media (min-width: 640px) {
+  .grid.cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 960px) {
+  .grid.cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 /* Cards */
 .card {
-  padding: 20px;
+  padding: 18px;
   border-radius: 16px;
   background: var(--card);
   border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+@media (min-width: 640px) {
+  .card {
+    padding: 20px;
+  }
 }
 
 .card h3 {
@@ -170,8 +228,8 @@ p {
 .menu .item {
   display: flex;
   justify-content: space-between;
-  gap: 20px;
-  padding: 14px 0;
+  gap: 14px;
+  padding: 12px 0;
   border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
 }
 
@@ -189,7 +247,7 @@ p {
 
 /* Testimonials */
 .testimonials .quote {
-  font-size: 18px;
+  font-size: 17px;
 }
 
 .testimonials .author {
@@ -199,9 +257,15 @@ p {
 
 /* Footer */
 .footer {
-  padding: 48px 0;
+  padding: 40px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   color: var(--muted);
+}
+
+@media (min-width: 900px) {
+  .footer {
+    padding: 48px 0;
+  }
 }
 
 /* Utilities */
@@ -214,13 +278,9 @@ p {
   display: none !important;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .grid.cols-3 {
-    grid-template-columns: 1fr;
-  }
-
-  .grid.cols-2 {
-    grid-template-columns: 1fr;
+/* Motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .header {
+    backdrop-filter: none;
   }
 }
